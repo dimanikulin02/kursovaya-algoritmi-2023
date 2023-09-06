@@ -1,0 +1,2110 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> PROGRAM ID SEMICOLON declarations local_declarations body DOT
+Rule 2     declarations -> <empty>
+Rule 3     declarations -> declarations VAR identList COLON type
+Rule 4     identList -> ID
+Rule 5     identList -> identList COMMA ID
+Rule 6     type -> INT
+Rule 7     type -> REAL
+Rule 8     type -> STRI
+Rule 9     local_declarations -> <empty>
+Rule 10    local_declarations -> local_declarations local_declaration SEMICOLON
+Rule 11    local_declaration -> subHead declarations body
+Rule 12    subHead -> FUNC ID args RETURN type SEMICOLON
+Rule 13    subHead -> PROC ID args SEMICOLON
+Rule 14    args -> <empty>
+Rule 15    args -> OPEN_PAREN paramList CLOSE_PAREN
+Rule 16    paramList -> identList COLON type
+Rule 17    paramList -> paramList SEMICOLON identList COLON type
+Rule 18    body -> BEGIN optionalStatements END
+Rule 19    bodyWBC -> BEGIN optionalStatementsWBC END
+Rule 20    optionalStatements -> <empty>
+Rule 21    optionalStatements -> statementList
+Rule 22    optionalStatementsWBC -> <empty>
+Rule 23    optionalStatementsWBC -> statementListWBC
+Rule 24    statementList -> statement
+Rule 25    statementList -> statementList SEMICOLON statement
+Rule 26    statementListWBC -> statementWBC
+Rule 27    statementListWBC -> statementListWBC SEMICOLON statementWBC
+Rule 28    statement -> variable ASSIGN expression
+Rule 29    statement -> PRINT OPEN_PAREN string CLOSE_PAREN
+Rule 30    statement -> PRINT OPEN_PAREN ID CLOSE_PAREN
+Rule 31    statement -> READ OPEN_PAREN string CLOSE_PAREN
+Rule 32    statement -> ID OPEN_PAREN expressionListProc CLOSE_PAREN
+Rule 33    statement -> body
+Rule 34    statement -> IF expression THEN bodyWBC
+Rule 35    statement -> WHILE expression DO statement
+Rule 36    statementWBC -> statement
+Rule 37    statementWBC -> brCon
+Rule 38    brCon -> BREAK
+Rule 39    brCon -> CONTINUE
+Rule 40    string -> STRING STR STRING
+Rule 41    variable -> ID
+Rule 42    expressionListProc -> <empty>
+Rule 43    expressionListProc -> expressionList
+Rule 44    expressionList -> expression
+Rule 45    expressionList -> expressionList COMMA expression
+Rule 46    expression -> simpleExpression
+Rule 47    expression -> simpleExpression COMPARE simpleExpression
+Rule 48    expression -> simpleExpression EQUAL simpleExpression
+Rule 49    expression -> simpleExpression AND simpleExpression
+Rule 50    expression -> simpleExpression OR simpleExpression
+Rule 51    simpleExpression -> term
+Rule 52    simpleExpression -> sign term
+Rule 53    simpleExpression -> simpleExpression MINUS term
+Rule 54    simpleExpression -> simpleExpression PLUS term
+Rule 55    term -> factor
+Rule 56    term -> term MULTIPLE factor
+Rule 57    term -> term DIV factor
+Rule 58    term -> term MOD factor
+Rule 59    term -> term DIVIDE factor
+Rule 60    factor -> ID
+Rule 61    factor -> ID OPEN_PAREN expressionList CLOSE_PAREN
+Rule 62    factor -> INT_DIGIT
+Rule 63    factor -> REAL_DIGIT
+Rule 64    factor -> OPEN_PAREN expression CLOSE_PAREN
+Rule 65    factor -> NOT factor
+Rule 66    sign -> PLUS
+Rule 67    sign -> MINUS
+
+Terminals, with rules where they appear
+
+AND                  : 49
+ASSIGN               : 28
+BEGIN                : 18 19
+BREAK                : 38
+CLOSE_PAREN          : 15 29 30 31 32 61 64
+COLON                : 3 16 17
+COMMA                : 5 45
+COMPARE              : 47
+CONTINUE             : 39
+DIV                  : 57
+DIVIDE               : 59
+DO                   : 35
+DOT                  : 1
+END                  : 18 19
+EQUAL                : 48
+FUNC                 : 12
+ID                   : 1 4 5 12 13 30 32 41 60 61
+IF                   : 34
+INT                  : 6
+INT_DIGIT            : 62
+MINUS                : 53 67
+MOD                  : 58
+MULTIPLE             : 56
+NOT                  : 65
+OPEN_PAREN           : 15 29 30 31 32 61 64
+OR                   : 50
+PLUS                 : 54 66
+PRINT                : 29 30
+PROC                 : 13
+PROGRAM              : 1
+READ                 : 31
+REAL                 : 7
+REAL_DIGIT           : 63
+RETURN               : 12
+SEMICOLON            : 1 10 12 13 17 25 27
+STR                  : 40
+STRI                 : 8
+STRING               : 40 40
+THEN                 : 34
+VAR                  : 3
+WHILE                : 35
+error                : 
+
+Nonterminals, with rules where they appear
+
+args                 : 12 13
+body                 : 1 11 33
+bodyWBC              : 34
+brCon                : 37
+declarations         : 1 3 11
+expression           : 28 34 35 44 45 64
+expressionList       : 43 45 61
+expressionListProc   : 32
+factor               : 55 56 57 58 59 65
+identList            : 3 5 16 17
+local_declaration    : 10
+local_declarations   : 1 10
+optionalStatements   : 18
+optionalStatementsWBC : 19
+paramList            : 15 17
+program              : 0
+sign                 : 52
+simpleExpression     : 46 47 47 48 48 49 49 50 50 53 54
+statement            : 24 25 35 36
+statementList        : 21 25
+statementListWBC     : 23 27
+statementWBC         : 26 27
+string               : 29 31
+subHead              : 11
+term                 : 51 52 53 54 56 57 58 59
+type                 : 3 12 16 17
+variable             : 28
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . PROGRAM ID SEMICOLON declarations local_declarations body DOT
+
+    PROGRAM         shift and go to state 2
+
+    program                        shift and go to state 1
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> PROGRAM . ID SEMICOLON declarations local_declarations body DOT
+
+    ID              shift and go to state 3
+
+
+state 3
+
+    (1) program -> PROGRAM ID . SEMICOLON declarations local_declarations body DOT
+
+    SEMICOLON       shift and go to state 4
+
+
+state 4
+
+    (1) program -> PROGRAM ID SEMICOLON . declarations local_declarations body DOT
+    (2) declarations -> .
+    (3) declarations -> . declarations VAR identList COLON type
+
+    VAR             reduce using rule 2 (declarations -> .)
+    BEGIN           reduce using rule 2 (declarations -> .)
+    FUNC            reduce using rule 2 (declarations -> .)
+    PROC            reduce using rule 2 (declarations -> .)
+
+    declarations                   shift and go to state 5
+
+state 5
+
+    (1) program -> PROGRAM ID SEMICOLON declarations . local_declarations body DOT
+    (3) declarations -> declarations . VAR identList COLON type
+    (9) local_declarations -> .
+    (10) local_declarations -> . local_declarations local_declaration SEMICOLON
+
+    VAR             shift and go to state 7
+    BEGIN           reduce using rule 9 (local_declarations -> .)
+    FUNC            reduce using rule 9 (local_declarations -> .)
+    PROC            reduce using rule 9 (local_declarations -> .)
+
+    local_declarations             shift and go to state 6
+
+state 6
+
+    (1) program -> PROGRAM ID SEMICOLON declarations local_declarations . body DOT
+    (10) local_declarations -> local_declarations . local_declaration SEMICOLON
+    (18) body -> . BEGIN optionalStatements END
+    (11) local_declaration -> . subHead declarations body
+    (12) subHead -> . FUNC ID args RETURN type SEMICOLON
+    (13) subHead -> . PROC ID args SEMICOLON
+
+    BEGIN           shift and go to state 10
+    FUNC            shift and go to state 12
+    PROC            shift and go to state 13
+
+    body                           shift and go to state 8
+    local_declaration              shift and go to state 9
+    subHead                        shift and go to state 11
+
+state 7
+
+    (3) declarations -> declarations VAR . identList COLON type
+    (4) identList -> . ID
+    (5) identList -> . identList COMMA ID
+
+    ID              shift and go to state 15
+
+    identList                      shift and go to state 14
+
+state 8
+
+    (1) program -> PROGRAM ID SEMICOLON declarations local_declarations body . DOT
+
+    DOT             shift and go to state 16
+
+
+state 9
+
+    (10) local_declarations -> local_declarations local_declaration . SEMICOLON
+
+    SEMICOLON       shift and go to state 17
+
+
+state 10
+
+    (18) body -> BEGIN . optionalStatements END
+    (20) optionalStatements -> .
+    (21) optionalStatements -> . statementList
+    (24) statementList -> . statement
+    (25) statementList -> . statementList SEMICOLON statement
+    (28) statement -> . variable ASSIGN expression
+    (29) statement -> . PRINT OPEN_PAREN string CLOSE_PAREN
+    (30) statement -> . PRINT OPEN_PAREN ID CLOSE_PAREN
+    (31) statement -> . READ OPEN_PAREN string CLOSE_PAREN
+    (32) statement -> . ID OPEN_PAREN expressionListProc CLOSE_PAREN
+    (33) statement -> . body
+    (34) statement -> . IF expression THEN bodyWBC
+    (35) statement -> . WHILE expression DO statement
+    (41) variable -> . ID
+    (18) body -> . BEGIN optionalStatements END
+
+    END             reduce using rule 20 (optionalStatements -> .)
+    PRINT           shift and go to state 22
+    READ            shift and go to state 24
+    ID              shift and go to state 23
+    IF              shift and go to state 26
+    WHILE           shift and go to state 27
+    BEGIN           shift and go to state 10
+
+    optionalStatements             shift and go to state 18
+    statementList                  shift and go to state 19
+    statement                      shift and go to state 20
+    variable                       shift and go to state 21
+    body                           shift and go to state 25
+
+state 11
+
+    (11) local_declaration -> subHead . declarations body
+    (2) declarations -> .
+    (3) declarations -> . declarations VAR identList COLON type
+
+    VAR             reduce using rule 2 (declarations -> .)
+    BEGIN           reduce using rule 2 (declarations -> .)
+
+    declarations                   shift and go to state 28
+
+state 12
+
+    (12) subHead -> FUNC . ID args RETURN type SEMICOLON
+
+    ID              shift and go to state 29
+
+
+state 13
+
+    (13) subHead -> PROC . ID args SEMICOLON
+
+    ID              shift and go to state 30
+
+
+state 14
+
+    (3) declarations -> declarations VAR identList . COLON type
+    (5) identList -> identList . COMMA ID
+
+    COLON           shift and go to state 31
+    COMMA           shift and go to state 32
+
+
+state 15
+
+    (4) identList -> ID .
+
+    COLON           reduce using rule 4 (identList -> ID .)
+    COMMA           reduce using rule 4 (identList -> ID .)
+
+
+state 16
+
+    (1) program -> PROGRAM ID SEMICOLON declarations local_declarations body DOT .
+
+    $end            reduce using rule 1 (program -> PROGRAM ID SEMICOLON declarations local_declarations body DOT .)
+
+
+state 17
+
+    (10) local_declarations -> local_declarations local_declaration SEMICOLON .
+
+    BEGIN           reduce using rule 10 (local_declarations -> local_declarations local_declaration SEMICOLON .)
+    FUNC            reduce using rule 10 (local_declarations -> local_declarations local_declaration SEMICOLON .)
+    PROC            reduce using rule 10 (local_declarations -> local_declarations local_declaration SEMICOLON .)
+
+
+state 18
+
+    (18) body -> BEGIN optionalStatements . END
+
+    END             shift and go to state 33
+
+
+state 19
+
+    (21) optionalStatements -> statementList .
+    (25) statementList -> statementList . SEMICOLON statement
+
+    END             reduce using rule 21 (optionalStatements -> statementList .)
+    SEMICOLON       shift and go to state 34
+
+
+state 20
+
+    (24) statementList -> statement .
+
+    SEMICOLON       reduce using rule 24 (statementList -> statement .)
+    END             reduce using rule 24 (statementList -> statement .)
+
+
+state 21
+
+    (28) statement -> variable . ASSIGN expression
+
+    ASSIGN          shift and go to state 35
+
+
+state 22
+
+    (29) statement -> PRINT . OPEN_PAREN string CLOSE_PAREN
+    (30) statement -> PRINT . OPEN_PAREN ID CLOSE_PAREN
+
+    OPEN_PAREN      shift and go to state 36
+
+
+state 23
+
+    (32) statement -> ID . OPEN_PAREN expressionListProc CLOSE_PAREN
+    (41) variable -> ID .
+
+    OPEN_PAREN      shift and go to state 37
+    ASSIGN          reduce using rule 41 (variable -> ID .)
+
+
+state 24
+
+    (31) statement -> READ . OPEN_PAREN string CLOSE_PAREN
+
+    OPEN_PAREN      shift and go to state 38
+
+
+state 25
+
+    (33) statement -> body .
+
+    SEMICOLON       reduce using rule 33 (statement -> body .)
+    END             reduce using rule 33 (statement -> body .)
+
+
+state 26
+
+    (34) statement -> IF . expression THEN bodyWBC
+    (46) expression -> . simpleExpression
+    (47) expression -> . simpleExpression COMPARE simpleExpression
+    (48) expression -> . simpleExpression EQUAL simpleExpression
+    (49) expression -> . simpleExpression AND simpleExpression
+    (50) expression -> . simpleExpression OR simpleExpression
+    (51) simpleExpression -> . term
+    (52) simpleExpression -> . sign term
+    (53) simpleExpression -> . simpleExpression MINUS term
+    (54) simpleExpression -> . simpleExpression PLUS term
+    (55) term -> . factor
+    (56) term -> . term MULTIPLE factor
+    (57) term -> . term DIV factor
+    (58) term -> . term MOD factor
+    (59) term -> . term DIVIDE factor
+    (66) sign -> . PLUS
+    (67) sign -> . MINUS
+    (60) factor -> . ID
+    (61) factor -> . ID OPEN_PAREN expressionList CLOSE_PAREN
+    (62) factor -> . INT_DIGIT
+    (63) factor -> . REAL_DIGIT
+    (64) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (65) factor -> . NOT factor
+
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 43
+    ID              shift and go to state 46
+    INT_DIGIT       shift and go to state 48
+    REAL_DIGIT      shift and go to state 49
+    OPEN_PAREN      shift and go to state 47
+    NOT             shift and go to state 50
+
+    expression                     shift and go to state 39
+    simpleExpression               shift and go to state 40
+    term                           shift and go to state 41
+    sign                           shift and go to state 42
+    factor                         shift and go to state 45
+
+state 27
+
+    (35) statement -> WHILE . expression DO statement
+    (46) expression -> . simpleExpression
+    (47) expression -> . simpleExpression COMPARE simpleExpression
+    (48) expression -> . simpleExpression EQUAL simpleExpression
+    (49) expression -> . simpleExpression AND simpleExpression
+    (50) expression -> . simpleExpression OR simpleExpression
+    (51) simpleExpression -> . term
+    (52) simpleExpression -> . sign term
+    (53) simpleExpression -> . simpleExpression MINUS term
+    (54) simpleExpression -> . simpleExpression PLUS term
+    (55) term -> . factor
+    (56) term -> . term MULTIPLE factor
+    (57) term -> . term DIV factor
+    (58) term -> . term MOD factor
+    (59) term -> . term DIVIDE factor
+    (66) sign -> . PLUS
+    (67) sign -> . MINUS
+    (60) factor -> . ID
+    (61) factor -> . ID OPEN_PAREN expressionList CLOSE_PAREN
+    (62) factor -> . INT_DIGIT
+    (63) factor -> . REAL_DIGIT
+    (64) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (65) factor -> . NOT factor
+
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 43
+    ID              shift and go to state 46
+    INT_DIGIT       shift and go to state 48
+    REAL_DIGIT      shift and go to state 49
+    OPEN_PAREN      shift and go to state 47
+    NOT             shift and go to state 50
+
+    expression                     shift and go to state 51
+    simpleExpression               shift and go to state 40
+    term                           shift and go to state 41
+    sign                           shift and go to state 42
+    factor                         shift and go to state 45
+
+state 28
+
+    (11) local_declaration -> subHead declarations . body
+    (3) declarations -> declarations . VAR identList COLON type
+    (18) body -> . BEGIN optionalStatements END
+
+    VAR             shift and go to state 7
+    BEGIN           shift and go to state 10
+
+    body                           shift and go to state 52
+
+state 29
+
+    (12) subHead -> FUNC ID . args RETURN type SEMICOLON
+    (14) args -> .
+    (15) args -> . OPEN_PAREN paramList CLOSE_PAREN
+
+    RETURN          reduce using rule 14 (args -> .)
+    OPEN_PAREN      shift and go to state 54
+
+    args                           shift and go to state 53
+
+state 30
+
+    (13) subHead -> PROC ID . args SEMICOLON
+    (14) args -> .
+    (15) args -> . OPEN_PAREN paramList CLOSE_PAREN
+
+    SEMICOLON       reduce using rule 14 (args -> .)
+    OPEN_PAREN      shift and go to state 54
+
+    args                           shift and go to state 55
+
+state 31
+
+    (3) declarations -> declarations VAR identList COLON . type
+    (6) type -> . INT
+    (7) type -> . REAL
+    (8) type -> . STRI
+
+    INT             shift and go to state 57
+    REAL            shift and go to state 58
+    STRI            shift and go to state 59
+
+    type                           shift and go to state 56
+
+state 32
+
+    (5) identList -> identList COMMA . ID
+
+    ID              shift and go to state 60
+
+
+state 33
+
+    (18) body -> BEGIN optionalStatements END .
+
+    DOT             reduce using rule 18 (body -> BEGIN optionalStatements END .)
+    SEMICOLON       reduce using rule 18 (body -> BEGIN optionalStatements END .)
+    END             reduce using rule 18 (body -> BEGIN optionalStatements END .)
+
+
+state 34
+
+    (25) statementList -> statementList SEMICOLON . statement
+    (28) statement -> . variable ASSIGN expression
+    (29) statement -> . PRINT OPEN_PAREN string CLOSE_PAREN
+    (30) statement -> . PRINT OPEN_PAREN ID CLOSE_PAREN
+    (31) statement -> . READ OPEN_PAREN string CLOSE_PAREN
+    (32) statement -> . ID OPEN_PAREN expressionListProc CLOSE_PAREN
+    (33) statement -> . body
+    (34) statement -> . IF expression THEN bodyWBC
+    (35) statement -> . WHILE expression DO statement
+    (41) variable -> . ID
+    (18) body -> . BEGIN optionalStatements END
+
+    PRINT           shift and go to state 22
+    READ            shift and go to state 24
+    ID              shift and go to state 23
+    IF              shift and go to state 26
+    WHILE           shift and go to state 27
+    BEGIN           shift and go to state 10
+
+    statement                      shift and go to state 61
+    variable                       shift and go to state 21
+    body                           shift and go to state 25
+
+state 35
+
+    (28) statement -> variable ASSIGN . expression
+    (46) expression -> . simpleExpression
+    (47) expression -> . simpleExpression COMPARE simpleExpression
+    (48) expression -> . simpleExpression EQUAL simpleExpression
+    (49) expression -> . simpleExpression AND simpleExpression
+    (50) expression -> . simpleExpression OR simpleExpression
+    (51) simpleExpression -> . term
+    (52) simpleExpression -> . sign term
+    (53) simpleExpression -> . simpleExpression MINUS term
+    (54) simpleExpression -> . simpleExpression PLUS term
+    (55) term -> . factor
+    (56) term -> . term MULTIPLE factor
+    (57) term -> . term DIV factor
+    (58) term -> . term MOD factor
+    (59) term -> . term DIVIDE factor
+    (66) sign -> . PLUS
+    (67) sign -> . MINUS
+    (60) factor -> . ID
+    (61) factor -> . ID OPEN_PAREN expressionList CLOSE_PAREN
+    (62) factor -> . INT_DIGIT
+    (63) factor -> . REAL_DIGIT
+    (64) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (65) factor -> . NOT factor
+
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 43
+    ID              shift and go to state 46
+    INT_DIGIT       shift and go to state 48
+    REAL_DIGIT      shift and go to state 49
+    OPEN_PAREN      shift and go to state 47
+    NOT             shift and go to state 50
+
+    expression                     shift and go to state 62
+    simpleExpression               shift and go to state 40
+    term                           shift and go to state 41
+    sign                           shift and go to state 42
+    factor                         shift and go to state 45
+
+state 36
+
+    (29) statement -> PRINT OPEN_PAREN . string CLOSE_PAREN
+    (30) statement -> PRINT OPEN_PAREN . ID CLOSE_PAREN
+    (40) string -> . STRING STR STRING
+
+    ID              shift and go to state 64
+    STRING          shift and go to state 65
+
+    string                         shift and go to state 63
+
+state 37
+
+    (32) statement -> ID OPEN_PAREN . expressionListProc CLOSE_PAREN
+    (42) expressionListProc -> .
+    (43) expressionListProc -> . expressionList
+    (44) expressionList -> . expression
+    (45) expressionList -> . expressionList COMMA expression
+    (46) expression -> . simpleExpression
+    (47) expression -> . simpleExpression COMPARE simpleExpression
+    (48) expression -> . simpleExpression EQUAL simpleExpression
+    (49) expression -> . simpleExpression AND simpleExpression
+    (50) expression -> . simpleExpression OR simpleExpression
+    (51) simpleExpression -> . term
+    (52) simpleExpression -> . sign term
+    (53) simpleExpression -> . simpleExpression MINUS term
+    (54) simpleExpression -> . simpleExpression PLUS term
+    (55) term -> . factor
+    (56) term -> . term MULTIPLE factor
+    (57) term -> . term DIV factor
+    (58) term -> . term MOD factor
+    (59) term -> . term DIVIDE factor
+    (66) sign -> . PLUS
+    (67) sign -> . MINUS
+    (60) factor -> . ID
+    (61) factor -> . ID OPEN_PAREN expressionList CLOSE_PAREN
+    (62) factor -> . INT_DIGIT
+    (63) factor -> . REAL_DIGIT
+    (64) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (65) factor -> . NOT factor
+
+    CLOSE_PAREN     reduce using rule 42 (expressionListProc -> .)
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 43
+    ID              shift and go to state 46
+    INT_DIGIT       shift and go to state 48
+    REAL_DIGIT      shift and go to state 49
+    OPEN_PAREN      shift and go to state 47
+    NOT             shift and go to state 50
+
+    expressionListProc             shift and go to state 66
+    expressionList                 shift and go to state 67
+    expression                     shift and go to state 68
+    simpleExpression               shift and go to state 40
+    term                           shift and go to state 41
+    sign                           shift and go to state 42
+    factor                         shift and go to state 45
+
+state 38
+
+    (31) statement -> READ OPEN_PAREN . string CLOSE_PAREN
+    (40) string -> . STRING STR STRING
+
+    STRING          shift and go to state 65
+
+    string                         shift and go to state 69
+
+state 39
+
+    (34) statement -> IF expression . THEN bodyWBC
+
+    THEN            shift and go to state 70
+
+
+state 40
+
+    (46) expression -> simpleExpression .
+    (47) expression -> simpleExpression . COMPARE simpleExpression
+    (48) expression -> simpleExpression . EQUAL simpleExpression
+    (49) expression -> simpleExpression . AND simpleExpression
+    (50) expression -> simpleExpression . OR simpleExpression
+    (53) simpleExpression -> simpleExpression . MINUS term
+    (54) simpleExpression -> simpleExpression . PLUS term
+
+    THEN            reduce using rule 46 (expression -> simpleExpression .)
+    DO              reduce using rule 46 (expression -> simpleExpression .)
+    SEMICOLON       reduce using rule 46 (expression -> simpleExpression .)
+    END             reduce using rule 46 (expression -> simpleExpression .)
+    COMMA           reduce using rule 46 (expression -> simpleExpression .)
+    CLOSE_PAREN     reduce using rule 46 (expression -> simpleExpression .)
+    COMPARE         shift and go to state 71
+    EQUAL           shift and go to state 72
+    AND             shift and go to state 73
+    OR              shift and go to state 74
+    MINUS           shift and go to state 75
+    PLUS            shift and go to state 76
+
+
+state 41
+
+    (51) simpleExpression -> term .
+    (56) term -> term . MULTIPLE factor
+    (57) term -> term . DIV factor
+    (58) term -> term . MOD factor
+    (59) term -> term . DIVIDE factor
+
+    COMPARE         reduce using rule 51 (simpleExpression -> term .)
+    EQUAL           reduce using rule 51 (simpleExpression -> term .)
+    AND             reduce using rule 51 (simpleExpression -> term .)
+    OR              reduce using rule 51 (simpleExpression -> term .)
+    MINUS           reduce using rule 51 (simpleExpression -> term .)
+    PLUS            reduce using rule 51 (simpleExpression -> term .)
+    THEN            reduce using rule 51 (simpleExpression -> term .)
+    DO              reduce using rule 51 (simpleExpression -> term .)
+    SEMICOLON       reduce using rule 51 (simpleExpression -> term .)
+    END             reduce using rule 51 (simpleExpression -> term .)
+    COMMA           reduce using rule 51 (simpleExpression -> term .)
+    CLOSE_PAREN     reduce using rule 51 (simpleExpression -> term .)
+    MULTIPLE        shift and go to state 77
+    DIV             shift and go to state 78
+    MOD             shift and go to state 79
+    DIVIDE          shift and go to state 80
+
+
+state 42
+
+    (52) simpleExpression -> sign . term
+    (55) term -> . factor
+    (56) term -> . term MULTIPLE factor
+    (57) term -> . term DIV factor
+    (58) term -> . term MOD factor
+    (59) term -> . term DIVIDE factor
+    (60) factor -> . ID
+    (61) factor -> . ID OPEN_PAREN expressionList CLOSE_PAREN
+    (62) factor -> . INT_DIGIT
+    (63) factor -> . REAL_DIGIT
+    (64) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (65) factor -> . NOT factor
+
+    ID              shift and go to state 46
+    INT_DIGIT       shift and go to state 48
+    REAL_DIGIT      shift and go to state 49
+    OPEN_PAREN      shift and go to state 47
+    NOT             shift and go to state 50
+
+    term                           shift and go to state 81
+    factor                         shift and go to state 45
+
+state 43
+
+    (67) sign -> MINUS .
+
+    ID              reduce using rule 67 (sign -> MINUS .)
+    INT_DIGIT       reduce using rule 67 (sign -> MINUS .)
+    REAL_DIGIT      reduce using rule 67 (sign -> MINUS .)
+    OPEN_PAREN      reduce using rule 67 (sign -> MINUS .)
+    NOT             reduce using rule 67 (sign -> MINUS .)
+
+
+state 44
+
+    (66) sign -> PLUS .
+
+    ID              reduce using rule 66 (sign -> PLUS .)
+    INT_DIGIT       reduce using rule 66 (sign -> PLUS .)
+    REAL_DIGIT      reduce using rule 66 (sign -> PLUS .)
+    OPEN_PAREN      reduce using rule 66 (sign -> PLUS .)
+    NOT             reduce using rule 66 (sign -> PLUS .)
+
+
+state 45
+
+    (55) term -> factor .
+
+    MULTIPLE        reduce using rule 55 (term -> factor .)
+    DIV             reduce using rule 55 (term -> factor .)
+    MOD             reduce using rule 55 (term -> factor .)
+    DIVIDE          reduce using rule 55 (term -> factor .)
+    COMPARE         reduce using rule 55 (term -> factor .)
+    EQUAL           reduce using rule 55 (term -> factor .)
+    AND             reduce using rule 55 (term -> factor .)
+    OR              reduce using rule 55 (term -> factor .)
+    MINUS           reduce using rule 55 (term -> factor .)
+    PLUS            reduce using rule 55 (term -> factor .)
+    THEN            reduce using rule 55 (term -> factor .)
+    DO              reduce using rule 55 (term -> factor .)
+    SEMICOLON       reduce using rule 55 (term -> factor .)
+    END             reduce using rule 55 (term -> factor .)
+    COMMA           reduce using rule 55 (term -> factor .)
+    CLOSE_PAREN     reduce using rule 55 (term -> factor .)
+
+
+state 46
+
+    (60) factor -> ID .
+    (61) factor -> ID . OPEN_PAREN expressionList CLOSE_PAREN
+
+    MULTIPLE        reduce using rule 60 (factor -> ID .)
+    DIV             reduce using rule 60 (factor -> ID .)
+    MOD             reduce using rule 60 (factor -> ID .)
+    DIVIDE          reduce using rule 60 (factor -> ID .)
+    COMPARE         reduce using rule 60 (factor -> ID .)
+    EQUAL           reduce using rule 60 (factor -> ID .)
+    AND             reduce using rule 60 (factor -> ID .)
+    OR              reduce using rule 60 (factor -> ID .)
+    MINUS           reduce using rule 60 (factor -> ID .)
+    PLUS            reduce using rule 60 (factor -> ID .)
+    THEN            reduce using rule 60 (factor -> ID .)
+    DO              reduce using rule 60 (factor -> ID .)
+    SEMICOLON       reduce using rule 60 (factor -> ID .)
+    END             reduce using rule 60 (factor -> ID .)
+    COMMA           reduce using rule 60 (factor -> ID .)
+    CLOSE_PAREN     reduce using rule 60 (factor -> ID .)
+    OPEN_PAREN      shift and go to state 82
+
+
+state 47
+
+    (64) factor -> OPEN_PAREN . expression CLOSE_PAREN
+    (46) expression -> . simpleExpression
+    (47) expression -> . simpleExpression COMPARE simpleExpression
+    (48) expression -> . simpleExpression EQUAL simpleExpression
+    (49) expression -> . simpleExpression AND simpleExpression
+    (50) expression -> . simpleExpression OR simpleExpression
+    (51) simpleExpression -> . term
+    (52) simpleExpression -> . sign term
+    (53) simpleExpression -> . simpleExpression MINUS term
+    (54) simpleExpression -> . simpleExpression PLUS term
+    (55) term -> . factor
+    (56) term -> . term MULTIPLE factor
+    (57) term -> . term DIV factor
+    (58) term -> . term MOD factor
+    (59) term -> . term DIVIDE factor
+    (66) sign -> . PLUS
+    (67) sign -> . MINUS
+    (60) factor -> . ID
+    (61) factor -> . ID OPEN_PAREN expressionList CLOSE_PAREN
+    (62) factor -> . INT_DIGIT
+    (63) factor -> . REAL_DIGIT
+    (64) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (65) factor -> . NOT factor
+
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 43
+    ID              shift and go to state 46
+    INT_DIGIT       shift and go to state 48
+    REAL_DIGIT      shift and go to state 49
+    OPEN_PAREN      shift and go to state 47
+    NOT             shift and go to state 50
+
+    expression                     shift and go to state 83
+    simpleExpression               shift and go to state 40
+    term                           shift and go to state 41
+    sign                           shift and go to state 42
+    factor                         shift and go to state 45
+
+state 48
+
+    (62) factor -> INT_DIGIT .
+
+    MULTIPLE        reduce using rule 62 (factor -> INT_DIGIT .)
+    DIV             reduce using rule 62 (factor -> INT_DIGIT .)
+    MOD             reduce using rule 62 (factor -> INT_DIGIT .)
+    DIVIDE          reduce using rule 62 (factor -> INT_DIGIT .)
+    COMPARE         reduce using rule 62 (factor -> INT_DIGIT .)
+    EQUAL           reduce using rule 62 (factor -> INT_DIGIT .)
+    AND             reduce using rule 62 (factor -> INT_DIGIT .)
+    OR              reduce using rule 62 (factor -> INT_DIGIT .)
+    MINUS           reduce using rule 62 (factor -> INT_DIGIT .)
+    PLUS            reduce using rule 62 (factor -> INT_DIGIT .)
+    THEN            reduce using rule 62 (factor -> INT_DIGIT .)
+    DO              reduce using rule 62 (factor -> INT_DIGIT .)
+    SEMICOLON       reduce using rule 62 (factor -> INT_DIGIT .)
+    END             reduce using rule 62 (factor -> INT_DIGIT .)
+    COMMA           reduce using rule 62 (factor -> INT_DIGIT .)
+    CLOSE_PAREN     reduce using rule 62 (factor -> INT_DIGIT .)
+
+
+state 49
+
+    (63) factor -> REAL_DIGIT .
+
+    MULTIPLE        reduce using rule 63 (factor -> REAL_DIGIT .)
+    DIV             reduce using rule 63 (factor -> REAL_DIGIT .)
+    MOD             reduce using rule 63 (factor -> REAL_DIGIT .)
+    DIVIDE          reduce using rule 63 (factor -> REAL_DIGIT .)
+    COMPARE         reduce using rule 63 (factor -> REAL_DIGIT .)
+    EQUAL           reduce using rule 63 (factor -> REAL_DIGIT .)
+    AND             reduce using rule 63 (factor -> REAL_DIGIT .)
+    OR              reduce using rule 63 (factor -> REAL_DIGIT .)
+    MINUS           reduce using rule 63 (factor -> REAL_DIGIT .)
+    PLUS            reduce using rule 63 (factor -> REAL_DIGIT .)
+    THEN            reduce using rule 63 (factor -> REAL_DIGIT .)
+    DO              reduce using rule 63 (factor -> REAL_DIGIT .)
+    SEMICOLON       reduce using rule 63 (factor -> REAL_DIGIT .)
+    END             reduce using rule 63 (factor -> REAL_DIGIT .)
+    COMMA           reduce using rule 63 (factor -> REAL_DIGIT .)
+    CLOSE_PAREN     reduce using rule 63 (factor -> REAL_DIGIT .)
+
+
+state 50
+
+    (65) factor -> NOT . factor
+    (60) factor -> . ID
+    (61) factor -> . ID OPEN_PAREN expressionList CLOSE_PAREN
+    (62) factor -> . INT_DIGIT
+    (63) factor -> . REAL_DIGIT
+    (64) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (65) factor -> . NOT factor
+
+    ID              shift and go to state 46
+    INT_DIGIT       shift and go to state 48
+    REAL_DIGIT      shift and go to state 49
+    OPEN_PAREN      shift and go to state 47
+    NOT             shift and go to state 50
+
+    factor                         shift and go to state 84
+
+state 51
+
+    (35) statement -> WHILE expression . DO statement
+
+    DO              shift and go to state 85
+
+
+state 52
+
+    (11) local_declaration -> subHead declarations body .
+
+    SEMICOLON       reduce using rule 11 (local_declaration -> subHead declarations body .)
+
+
+state 53
+
+    (12) subHead -> FUNC ID args . RETURN type SEMICOLON
+
+    RETURN          shift and go to state 86
+
+
+state 54
+
+    (15) args -> OPEN_PAREN . paramList CLOSE_PAREN
+    (16) paramList -> . identList COLON type
+    (17) paramList -> . paramList SEMICOLON identList COLON type
+    (4) identList -> . ID
+    (5) identList -> . identList COMMA ID
+
+    ID              shift and go to state 15
+
+    paramList                      shift and go to state 87
+    identList                      shift and go to state 88
+
+state 55
+
+    (13) subHead -> PROC ID args . SEMICOLON
+
+    SEMICOLON       shift and go to state 89
+
+
+state 56
+
+    (3) declarations -> declarations VAR identList COLON type .
+
+    VAR             reduce using rule 3 (declarations -> declarations VAR identList COLON type .)
+    BEGIN           reduce using rule 3 (declarations -> declarations VAR identList COLON type .)
+    FUNC            reduce using rule 3 (declarations -> declarations VAR identList COLON type .)
+    PROC            reduce using rule 3 (declarations -> declarations VAR identList COLON type .)
+
+
+state 57
+
+    (6) type -> INT .
+
+    VAR             reduce using rule 6 (type -> INT .)
+    BEGIN           reduce using rule 6 (type -> INT .)
+    FUNC            reduce using rule 6 (type -> INT .)
+    PROC            reduce using rule 6 (type -> INT .)
+    SEMICOLON       reduce using rule 6 (type -> INT .)
+    CLOSE_PAREN     reduce using rule 6 (type -> INT .)
+
+
+state 58
+
+    (7) type -> REAL .
+
+    VAR             reduce using rule 7 (type -> REAL .)
+    BEGIN           reduce using rule 7 (type -> REAL .)
+    FUNC            reduce using rule 7 (type -> REAL .)
+    PROC            reduce using rule 7 (type -> REAL .)
+    SEMICOLON       reduce using rule 7 (type -> REAL .)
+    CLOSE_PAREN     reduce using rule 7 (type -> REAL .)
+
+
+state 59
+
+    (8) type -> STRI .
+
+    VAR             reduce using rule 8 (type -> STRI .)
+    BEGIN           reduce using rule 8 (type -> STRI .)
+    FUNC            reduce using rule 8 (type -> STRI .)
+    PROC            reduce using rule 8 (type -> STRI .)
+    SEMICOLON       reduce using rule 8 (type -> STRI .)
+    CLOSE_PAREN     reduce using rule 8 (type -> STRI .)
+
+
+state 60
+
+    (5) identList -> identList COMMA ID .
+
+    COLON           reduce using rule 5 (identList -> identList COMMA ID .)
+    COMMA           reduce using rule 5 (identList -> identList COMMA ID .)
+
+
+state 61
+
+    (25) statementList -> statementList SEMICOLON statement .
+
+    SEMICOLON       reduce using rule 25 (statementList -> statementList SEMICOLON statement .)
+    END             reduce using rule 25 (statementList -> statementList SEMICOLON statement .)
+
+
+state 62
+
+    (28) statement -> variable ASSIGN expression .
+
+    SEMICOLON       reduce using rule 28 (statement -> variable ASSIGN expression .)
+    END             reduce using rule 28 (statement -> variable ASSIGN expression .)
+
+
+state 63
+
+    (29) statement -> PRINT OPEN_PAREN string . CLOSE_PAREN
+
+    CLOSE_PAREN     shift and go to state 90
+
+
+state 64
+
+    (30) statement -> PRINT OPEN_PAREN ID . CLOSE_PAREN
+
+    CLOSE_PAREN     shift and go to state 91
+
+
+state 65
+
+    (40) string -> STRING . STR STRING
+
+    STR             shift and go to state 92
+
+
+state 66
+
+    (32) statement -> ID OPEN_PAREN expressionListProc . CLOSE_PAREN
+
+    CLOSE_PAREN     shift and go to state 93
+
+
+state 67
+
+    (43) expressionListProc -> expressionList .
+    (45) expressionList -> expressionList . COMMA expression
+
+    CLOSE_PAREN     reduce using rule 43 (expressionListProc -> expressionList .)
+    COMMA           shift and go to state 94
+
+
+state 68
+
+    (44) expressionList -> expression .
+
+    COMMA           reduce using rule 44 (expressionList -> expression .)
+    CLOSE_PAREN     reduce using rule 44 (expressionList -> expression .)
+
+
+state 69
+
+    (31) statement -> READ OPEN_PAREN string . CLOSE_PAREN
+
+    CLOSE_PAREN     shift and go to state 95
+
+
+state 70
+
+    (34) statement -> IF expression THEN . bodyWBC
+    (19) bodyWBC -> . BEGIN optionalStatementsWBC END
+
+    BEGIN           shift and go to state 97
+
+    bodyWBC                        shift and go to state 96
+
+state 71
+
+    (47) expression -> simpleExpression COMPARE . simpleExpression
+    (51) simpleExpression -> . term
+    (52) simpleExpression -> . sign term
+    (53) simpleExpression -> . simpleExpression MINUS term
+    (54) simpleExpression -> . simpleExpression PLUS term
+    (55) term -> . factor
+    (56) term -> . term MULTIPLE factor
+    (57) term -> . term DIV factor
+    (58) term -> . term MOD factor
+    (59) term -> . term DIVIDE factor
+    (66) sign -> . PLUS
+    (67) sign -> . MINUS
+    (60) factor -> . ID
+    (61) factor -> . ID OPEN_PAREN expressionList CLOSE_PAREN
+    (62) factor -> . INT_DIGIT
+    (63) factor -> . REAL_DIGIT
+    (64) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (65) factor -> . NOT factor
+
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 43
+    ID              shift and go to state 46
+    INT_DIGIT       shift and go to state 48
+    REAL_DIGIT      shift and go to state 49
+    OPEN_PAREN      shift and go to state 47
+    NOT             shift and go to state 50
+
+    simpleExpression               shift and go to state 98
+    term                           shift and go to state 41
+    sign                           shift and go to state 42
+    factor                         shift and go to state 45
+
+state 72
+
+    (48) expression -> simpleExpression EQUAL . simpleExpression
+    (51) simpleExpression -> . term
+    (52) simpleExpression -> . sign term
+    (53) simpleExpression -> . simpleExpression MINUS term
+    (54) simpleExpression -> . simpleExpression PLUS term
+    (55) term -> . factor
+    (56) term -> . term MULTIPLE factor
+    (57) term -> . term DIV factor
+    (58) term -> . term MOD factor
+    (59) term -> . term DIVIDE factor
+    (66) sign -> . PLUS
+    (67) sign -> . MINUS
+    (60) factor -> . ID
+    (61) factor -> . ID OPEN_PAREN expressionList CLOSE_PAREN
+    (62) factor -> . INT_DIGIT
+    (63) factor -> . REAL_DIGIT
+    (64) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (65) factor -> . NOT factor
+
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 43
+    ID              shift and go to state 46
+    INT_DIGIT       shift and go to state 48
+    REAL_DIGIT      shift and go to state 49
+    OPEN_PAREN      shift and go to state 47
+    NOT             shift and go to state 50
+
+    simpleExpression               shift and go to state 99
+    term                           shift and go to state 41
+    sign                           shift and go to state 42
+    factor                         shift and go to state 45
+
+state 73
+
+    (49) expression -> simpleExpression AND . simpleExpression
+    (51) simpleExpression -> . term
+    (52) simpleExpression -> . sign term
+    (53) simpleExpression -> . simpleExpression MINUS term
+    (54) simpleExpression -> . simpleExpression PLUS term
+    (55) term -> . factor
+    (56) term -> . term MULTIPLE factor
+    (57) term -> . term DIV factor
+    (58) term -> . term MOD factor
+    (59) term -> . term DIVIDE factor
+    (66) sign -> . PLUS
+    (67) sign -> . MINUS
+    (60) factor -> . ID
+    (61) factor -> . ID OPEN_PAREN expressionList CLOSE_PAREN
+    (62) factor -> . INT_DIGIT
+    (63) factor -> . REAL_DIGIT
+    (64) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (65) factor -> . NOT factor
+
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 43
+    ID              shift and go to state 46
+    INT_DIGIT       shift and go to state 48
+    REAL_DIGIT      shift and go to state 49
+    OPEN_PAREN      shift and go to state 47
+    NOT             shift and go to state 50
+
+    simpleExpression               shift and go to state 100
+    term                           shift and go to state 41
+    sign                           shift and go to state 42
+    factor                         shift and go to state 45
+
+state 74
+
+    (50) expression -> simpleExpression OR . simpleExpression
+    (51) simpleExpression -> . term
+    (52) simpleExpression -> . sign term
+    (53) simpleExpression -> . simpleExpression MINUS term
+    (54) simpleExpression -> . simpleExpression PLUS term
+    (55) term -> . factor
+    (56) term -> . term MULTIPLE factor
+    (57) term -> . term DIV factor
+    (58) term -> . term MOD factor
+    (59) term -> . term DIVIDE factor
+    (66) sign -> . PLUS
+    (67) sign -> . MINUS
+    (60) factor -> . ID
+    (61) factor -> . ID OPEN_PAREN expressionList CLOSE_PAREN
+    (62) factor -> . INT_DIGIT
+    (63) factor -> . REAL_DIGIT
+    (64) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (65) factor -> . NOT factor
+
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 43
+    ID              shift and go to state 46
+    INT_DIGIT       shift and go to state 48
+    REAL_DIGIT      shift and go to state 49
+    OPEN_PAREN      shift and go to state 47
+    NOT             shift and go to state 50
+
+    simpleExpression               shift and go to state 101
+    term                           shift and go to state 41
+    sign                           shift and go to state 42
+    factor                         shift and go to state 45
+
+state 75
+
+    (53) simpleExpression -> simpleExpression MINUS . term
+    (55) term -> . factor
+    (56) term -> . term MULTIPLE factor
+    (57) term -> . term DIV factor
+    (58) term -> . term MOD factor
+    (59) term -> . term DIVIDE factor
+    (60) factor -> . ID
+    (61) factor -> . ID OPEN_PAREN expressionList CLOSE_PAREN
+    (62) factor -> . INT_DIGIT
+    (63) factor -> . REAL_DIGIT
+    (64) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (65) factor -> . NOT factor
+
+    ID              shift and go to state 46
+    INT_DIGIT       shift and go to state 48
+    REAL_DIGIT      shift and go to state 49
+    OPEN_PAREN      shift and go to state 47
+    NOT             shift and go to state 50
+
+    term                           shift and go to state 102
+    factor                         shift and go to state 45
+
+state 76
+
+    (54) simpleExpression -> simpleExpression PLUS . term
+    (55) term -> . factor
+    (56) term -> . term MULTIPLE factor
+    (57) term -> . term DIV factor
+    (58) term -> . term MOD factor
+    (59) term -> . term DIVIDE factor
+    (60) factor -> . ID
+    (61) factor -> . ID OPEN_PAREN expressionList CLOSE_PAREN
+    (62) factor -> . INT_DIGIT
+    (63) factor -> . REAL_DIGIT
+    (64) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (65) factor -> . NOT factor
+
+    ID              shift and go to state 46
+    INT_DIGIT       shift and go to state 48
+    REAL_DIGIT      shift and go to state 49
+    OPEN_PAREN      shift and go to state 47
+    NOT             shift and go to state 50
+
+    term                           shift and go to state 103
+    factor                         shift and go to state 45
+
+state 77
+
+    (56) term -> term MULTIPLE . factor
+    (60) factor -> . ID
+    (61) factor -> . ID OPEN_PAREN expressionList CLOSE_PAREN
+    (62) factor -> . INT_DIGIT
+    (63) factor -> . REAL_DIGIT
+    (64) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (65) factor -> . NOT factor
+
+    ID              shift and go to state 46
+    INT_DIGIT       shift and go to state 48
+    REAL_DIGIT      shift and go to state 49
+    OPEN_PAREN      shift and go to state 47
+    NOT             shift and go to state 50
+
+    factor                         shift and go to state 104
+
+state 78
+
+    (57) term -> term DIV . factor
+    (60) factor -> . ID
+    (61) factor -> . ID OPEN_PAREN expressionList CLOSE_PAREN
+    (62) factor -> . INT_DIGIT
+    (63) factor -> . REAL_DIGIT
+    (64) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (65) factor -> . NOT factor
+
+    ID              shift and go to state 46
+    INT_DIGIT       shift and go to state 48
+    REAL_DIGIT      shift and go to state 49
+    OPEN_PAREN      shift and go to state 47
+    NOT             shift and go to state 50
+
+    factor                         shift and go to state 105
+
+state 79
+
+    (58) term -> term MOD . factor
+    (60) factor -> . ID
+    (61) factor -> . ID OPEN_PAREN expressionList CLOSE_PAREN
+    (62) factor -> . INT_DIGIT
+    (63) factor -> . REAL_DIGIT
+    (64) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (65) factor -> . NOT factor
+
+    ID              shift and go to state 46
+    INT_DIGIT       shift and go to state 48
+    REAL_DIGIT      shift and go to state 49
+    OPEN_PAREN      shift and go to state 47
+    NOT             shift and go to state 50
+
+    factor                         shift and go to state 106
+
+state 80
+
+    (59) term -> term DIVIDE . factor
+    (60) factor -> . ID
+    (61) factor -> . ID OPEN_PAREN expressionList CLOSE_PAREN
+    (62) factor -> . INT_DIGIT
+    (63) factor -> . REAL_DIGIT
+    (64) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (65) factor -> . NOT factor
+
+    ID              shift and go to state 46
+    INT_DIGIT       shift and go to state 48
+    REAL_DIGIT      shift and go to state 49
+    OPEN_PAREN      shift and go to state 47
+    NOT             shift and go to state 50
+
+    factor                         shift and go to state 107
+
+state 81
+
+    (52) simpleExpression -> sign term .
+    (56) term -> term . MULTIPLE factor
+    (57) term -> term . DIV factor
+    (58) term -> term . MOD factor
+    (59) term -> term . DIVIDE factor
+
+    COMPARE         reduce using rule 52 (simpleExpression -> sign term .)
+    EQUAL           reduce using rule 52 (simpleExpression -> sign term .)
+    AND             reduce using rule 52 (simpleExpression -> sign term .)
+    OR              reduce using rule 52 (simpleExpression -> sign term .)
+    MINUS           reduce using rule 52 (simpleExpression -> sign term .)
+    PLUS            reduce using rule 52 (simpleExpression -> sign term .)
+    THEN            reduce using rule 52 (simpleExpression -> sign term .)
+    DO              reduce using rule 52 (simpleExpression -> sign term .)
+    SEMICOLON       reduce using rule 52 (simpleExpression -> sign term .)
+    END             reduce using rule 52 (simpleExpression -> sign term .)
+    COMMA           reduce using rule 52 (simpleExpression -> sign term .)
+    CLOSE_PAREN     reduce using rule 52 (simpleExpression -> sign term .)
+    MULTIPLE        shift and go to state 77
+    DIV             shift and go to state 78
+    MOD             shift and go to state 79
+    DIVIDE          shift and go to state 80
+
+
+state 82
+
+    (61) factor -> ID OPEN_PAREN . expressionList CLOSE_PAREN
+    (44) expressionList -> . expression
+    (45) expressionList -> . expressionList COMMA expression
+    (46) expression -> . simpleExpression
+    (47) expression -> . simpleExpression COMPARE simpleExpression
+    (48) expression -> . simpleExpression EQUAL simpleExpression
+    (49) expression -> . simpleExpression AND simpleExpression
+    (50) expression -> . simpleExpression OR simpleExpression
+    (51) simpleExpression -> . term
+    (52) simpleExpression -> . sign term
+    (53) simpleExpression -> . simpleExpression MINUS term
+    (54) simpleExpression -> . simpleExpression PLUS term
+    (55) term -> . factor
+    (56) term -> . term MULTIPLE factor
+    (57) term -> . term DIV factor
+    (58) term -> . term MOD factor
+    (59) term -> . term DIVIDE factor
+    (66) sign -> . PLUS
+    (67) sign -> . MINUS
+    (60) factor -> . ID
+    (61) factor -> . ID OPEN_PAREN expressionList CLOSE_PAREN
+    (62) factor -> . INT_DIGIT
+    (63) factor -> . REAL_DIGIT
+    (64) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (65) factor -> . NOT factor
+
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 43
+    ID              shift and go to state 46
+    INT_DIGIT       shift and go to state 48
+    REAL_DIGIT      shift and go to state 49
+    OPEN_PAREN      shift and go to state 47
+    NOT             shift and go to state 50
+
+    expressionList                 shift and go to state 108
+    expression                     shift and go to state 68
+    simpleExpression               shift and go to state 40
+    term                           shift and go to state 41
+    sign                           shift and go to state 42
+    factor                         shift and go to state 45
+
+state 83
+
+    (64) factor -> OPEN_PAREN expression . CLOSE_PAREN
+
+    CLOSE_PAREN     shift and go to state 109
+
+
+state 84
+
+    (65) factor -> NOT factor .
+
+    MULTIPLE        reduce using rule 65 (factor -> NOT factor .)
+    DIV             reduce using rule 65 (factor -> NOT factor .)
+    MOD             reduce using rule 65 (factor -> NOT factor .)
+    DIVIDE          reduce using rule 65 (factor -> NOT factor .)
+    COMPARE         reduce using rule 65 (factor -> NOT factor .)
+    EQUAL           reduce using rule 65 (factor -> NOT factor .)
+    AND             reduce using rule 65 (factor -> NOT factor .)
+    OR              reduce using rule 65 (factor -> NOT factor .)
+    MINUS           reduce using rule 65 (factor -> NOT factor .)
+    PLUS            reduce using rule 65 (factor -> NOT factor .)
+    THEN            reduce using rule 65 (factor -> NOT factor .)
+    DO              reduce using rule 65 (factor -> NOT factor .)
+    SEMICOLON       reduce using rule 65 (factor -> NOT factor .)
+    END             reduce using rule 65 (factor -> NOT factor .)
+    COMMA           reduce using rule 65 (factor -> NOT factor .)
+    CLOSE_PAREN     reduce using rule 65 (factor -> NOT factor .)
+
+
+state 85
+
+    (35) statement -> WHILE expression DO . statement
+    (28) statement -> . variable ASSIGN expression
+    (29) statement -> . PRINT OPEN_PAREN string CLOSE_PAREN
+    (30) statement -> . PRINT OPEN_PAREN ID CLOSE_PAREN
+    (31) statement -> . READ OPEN_PAREN string CLOSE_PAREN
+    (32) statement -> . ID OPEN_PAREN expressionListProc CLOSE_PAREN
+    (33) statement -> . body
+    (34) statement -> . IF expression THEN bodyWBC
+    (35) statement -> . WHILE expression DO statement
+    (41) variable -> . ID
+    (18) body -> . BEGIN optionalStatements END
+
+    PRINT           shift and go to state 22
+    READ            shift and go to state 24
+    ID              shift and go to state 23
+    IF              shift and go to state 26
+    WHILE           shift and go to state 27
+    BEGIN           shift and go to state 10
+
+    statement                      shift and go to state 110
+    variable                       shift and go to state 21
+    body                           shift and go to state 25
+
+state 86
+
+    (12) subHead -> FUNC ID args RETURN . type SEMICOLON
+    (6) type -> . INT
+    (7) type -> . REAL
+    (8) type -> . STRI
+
+    INT             shift and go to state 57
+    REAL            shift and go to state 58
+    STRI            shift and go to state 59
+
+    type                           shift and go to state 111
+
+state 87
+
+    (15) args -> OPEN_PAREN paramList . CLOSE_PAREN
+    (17) paramList -> paramList . SEMICOLON identList COLON type
+
+    CLOSE_PAREN     shift and go to state 112
+    SEMICOLON       shift and go to state 113
+
+
+state 88
+
+    (16) paramList -> identList . COLON type
+    (5) identList -> identList . COMMA ID
+
+    COLON           shift and go to state 114
+    COMMA           shift and go to state 32
+
+
+state 89
+
+    (13) subHead -> PROC ID args SEMICOLON .
+
+    VAR             reduce using rule 13 (subHead -> PROC ID args SEMICOLON .)
+    BEGIN           reduce using rule 13 (subHead -> PROC ID args SEMICOLON .)
+
+
+state 90
+
+    (29) statement -> PRINT OPEN_PAREN string CLOSE_PAREN .
+
+    SEMICOLON       reduce using rule 29 (statement -> PRINT OPEN_PAREN string CLOSE_PAREN .)
+    END             reduce using rule 29 (statement -> PRINT OPEN_PAREN string CLOSE_PAREN .)
+
+
+state 91
+
+    (30) statement -> PRINT OPEN_PAREN ID CLOSE_PAREN .
+
+    SEMICOLON       reduce using rule 30 (statement -> PRINT OPEN_PAREN ID CLOSE_PAREN .)
+    END             reduce using rule 30 (statement -> PRINT OPEN_PAREN ID CLOSE_PAREN .)
+
+
+state 92
+
+    (40) string -> STRING STR . STRING
+
+    STRING          shift and go to state 115
+
+
+state 93
+
+    (32) statement -> ID OPEN_PAREN expressionListProc CLOSE_PAREN .
+
+    SEMICOLON       reduce using rule 32 (statement -> ID OPEN_PAREN expressionListProc CLOSE_PAREN .)
+    END             reduce using rule 32 (statement -> ID OPEN_PAREN expressionListProc CLOSE_PAREN .)
+
+
+state 94
+
+    (45) expressionList -> expressionList COMMA . expression
+    (46) expression -> . simpleExpression
+    (47) expression -> . simpleExpression COMPARE simpleExpression
+    (48) expression -> . simpleExpression EQUAL simpleExpression
+    (49) expression -> . simpleExpression AND simpleExpression
+    (50) expression -> . simpleExpression OR simpleExpression
+    (51) simpleExpression -> . term
+    (52) simpleExpression -> . sign term
+    (53) simpleExpression -> . simpleExpression MINUS term
+    (54) simpleExpression -> . simpleExpression PLUS term
+    (55) term -> . factor
+    (56) term -> . term MULTIPLE factor
+    (57) term -> . term DIV factor
+    (58) term -> . term MOD factor
+    (59) term -> . term DIVIDE factor
+    (66) sign -> . PLUS
+    (67) sign -> . MINUS
+    (60) factor -> . ID
+    (61) factor -> . ID OPEN_PAREN expressionList CLOSE_PAREN
+    (62) factor -> . INT_DIGIT
+    (63) factor -> . REAL_DIGIT
+    (64) factor -> . OPEN_PAREN expression CLOSE_PAREN
+    (65) factor -> . NOT factor
+
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 43
+    ID              shift and go to state 46
+    INT_DIGIT       shift and go to state 48
+    REAL_DIGIT      shift and go to state 49
+    OPEN_PAREN      shift and go to state 47
+    NOT             shift and go to state 50
+
+    expression                     shift and go to state 116
+    simpleExpression               shift and go to state 40
+    term                           shift and go to state 41
+    sign                           shift and go to state 42
+    factor                         shift and go to state 45
+
+state 95
+
+    (31) statement -> READ OPEN_PAREN string CLOSE_PAREN .
+
+    SEMICOLON       reduce using rule 31 (statement -> READ OPEN_PAREN string CLOSE_PAREN .)
+    END             reduce using rule 31 (statement -> READ OPEN_PAREN string CLOSE_PAREN .)
+
+
+state 96
+
+    (34) statement -> IF expression THEN bodyWBC .
+
+    SEMICOLON       reduce using rule 34 (statement -> IF expression THEN bodyWBC .)
+    END             reduce using rule 34 (statement -> IF expression THEN bodyWBC .)
+
+
+state 97
+
+    (19) bodyWBC -> BEGIN . optionalStatementsWBC END
+    (22) optionalStatementsWBC -> .
+    (23) optionalStatementsWBC -> . statementListWBC
+    (26) statementListWBC -> . statementWBC
+    (27) statementListWBC -> . statementListWBC SEMICOLON statementWBC
+    (36) statementWBC -> . statement
+    (37) statementWBC -> . brCon
+    (28) statement -> . variable ASSIGN expression
+    (29) statement -> . PRINT OPEN_PAREN string CLOSE_PAREN
+    (30) statement -> . PRINT OPEN_PAREN ID CLOSE_PAREN
+    (31) statement -> . READ OPEN_PAREN string CLOSE_PAREN
+    (32) statement -> . ID OPEN_PAREN expressionListProc CLOSE_PAREN
+    (33) statement -> . body
+    (34) statement -> . IF expression THEN bodyWBC
+    (35) statement -> . WHILE expression DO statement
+    (38) brCon -> . BREAK
+    (39) brCon -> . CONTINUE
+    (41) variable -> . ID
+    (18) body -> . BEGIN optionalStatements END
+
+    END             reduce using rule 22 (optionalStatementsWBC -> .)
+    PRINT           shift and go to state 22
+    READ            shift and go to state 24
+    ID              shift and go to state 23
+    IF              shift and go to state 26
+    WHILE           shift and go to state 27
+    BREAK           shift and go to state 122
+    CONTINUE        shift and go to state 123
+    BEGIN           shift and go to state 10
+
+    optionalStatementsWBC          shift and go to state 117
+    statementListWBC               shift and go to state 118
+    statementWBC                   shift and go to state 119
+    statement                      shift and go to state 120
+    brCon                          shift and go to state 121
+    variable                       shift and go to state 21
+    body                           shift and go to state 25
+
+state 98
+
+    (47) expression -> simpleExpression COMPARE simpleExpression .
+    (53) simpleExpression -> simpleExpression . MINUS term
+    (54) simpleExpression -> simpleExpression . PLUS term
+
+    THEN            reduce using rule 47 (expression -> simpleExpression COMPARE simpleExpression .)
+    DO              reduce using rule 47 (expression -> simpleExpression COMPARE simpleExpression .)
+    SEMICOLON       reduce using rule 47 (expression -> simpleExpression COMPARE simpleExpression .)
+    END             reduce using rule 47 (expression -> simpleExpression COMPARE simpleExpression .)
+    COMMA           reduce using rule 47 (expression -> simpleExpression COMPARE simpleExpression .)
+    CLOSE_PAREN     reduce using rule 47 (expression -> simpleExpression COMPARE simpleExpression .)
+    MINUS           shift and go to state 75
+    PLUS            shift and go to state 76
+
+
+state 99
+
+    (48) expression -> simpleExpression EQUAL simpleExpression .
+    (53) simpleExpression -> simpleExpression . MINUS term
+    (54) simpleExpression -> simpleExpression . PLUS term
+
+    THEN            reduce using rule 48 (expression -> simpleExpression EQUAL simpleExpression .)
+    DO              reduce using rule 48 (expression -> simpleExpression EQUAL simpleExpression .)
+    SEMICOLON       reduce using rule 48 (expression -> simpleExpression EQUAL simpleExpression .)
+    END             reduce using rule 48 (expression -> simpleExpression EQUAL simpleExpression .)
+    COMMA           reduce using rule 48 (expression -> simpleExpression EQUAL simpleExpression .)
+    CLOSE_PAREN     reduce using rule 48 (expression -> simpleExpression EQUAL simpleExpression .)
+    MINUS           shift and go to state 75
+    PLUS            shift and go to state 76
+
+
+state 100
+
+    (49) expression -> simpleExpression AND simpleExpression .
+    (53) simpleExpression -> simpleExpression . MINUS term
+    (54) simpleExpression -> simpleExpression . PLUS term
+
+    THEN            reduce using rule 49 (expression -> simpleExpression AND simpleExpression .)
+    DO              reduce using rule 49 (expression -> simpleExpression AND simpleExpression .)
+    SEMICOLON       reduce using rule 49 (expression -> simpleExpression AND simpleExpression .)
+    END             reduce using rule 49 (expression -> simpleExpression AND simpleExpression .)
+    COMMA           reduce using rule 49 (expression -> simpleExpression AND simpleExpression .)
+    CLOSE_PAREN     reduce using rule 49 (expression -> simpleExpression AND simpleExpression .)
+    MINUS           shift and go to state 75
+    PLUS            shift and go to state 76
+
+
+state 101
+
+    (50) expression -> simpleExpression OR simpleExpression .
+    (53) simpleExpression -> simpleExpression . MINUS term
+    (54) simpleExpression -> simpleExpression . PLUS term
+
+    THEN            reduce using rule 50 (expression -> simpleExpression OR simpleExpression .)
+    DO              reduce using rule 50 (expression -> simpleExpression OR simpleExpression .)
+    SEMICOLON       reduce using rule 50 (expression -> simpleExpression OR simpleExpression .)
+    END             reduce using rule 50 (expression -> simpleExpression OR simpleExpression .)
+    COMMA           reduce using rule 50 (expression -> simpleExpression OR simpleExpression .)
+    CLOSE_PAREN     reduce using rule 50 (expression -> simpleExpression OR simpleExpression .)
+    MINUS           shift and go to state 75
+    PLUS            shift and go to state 76
+
+
+state 102
+
+    (53) simpleExpression -> simpleExpression MINUS term .
+    (56) term -> term . MULTIPLE factor
+    (57) term -> term . DIV factor
+    (58) term -> term . MOD factor
+    (59) term -> term . DIVIDE factor
+
+    COMPARE         reduce using rule 53 (simpleExpression -> simpleExpression MINUS term .)
+    EQUAL           reduce using rule 53 (simpleExpression -> simpleExpression MINUS term .)
+    AND             reduce using rule 53 (simpleExpression -> simpleExpression MINUS term .)
+    OR              reduce using rule 53 (simpleExpression -> simpleExpression MINUS term .)
+    MINUS           reduce using rule 53 (simpleExpression -> simpleExpression MINUS term .)
+    PLUS            reduce using rule 53 (simpleExpression -> simpleExpression MINUS term .)
+    THEN            reduce using rule 53 (simpleExpression -> simpleExpression MINUS term .)
+    DO              reduce using rule 53 (simpleExpression -> simpleExpression MINUS term .)
+    SEMICOLON       reduce using rule 53 (simpleExpression -> simpleExpression MINUS term .)
+    END             reduce using rule 53 (simpleExpression -> simpleExpression MINUS term .)
+    COMMA           reduce using rule 53 (simpleExpression -> simpleExpression MINUS term .)
+    CLOSE_PAREN     reduce using rule 53 (simpleExpression -> simpleExpression MINUS term .)
+    MULTIPLE        shift and go to state 77
+    DIV             shift and go to state 78
+    MOD             shift and go to state 79
+    DIVIDE          shift and go to state 80
+
+
+state 103
+
+    (54) simpleExpression -> simpleExpression PLUS term .
+    (56) term -> term . MULTIPLE factor
+    (57) term -> term . DIV factor
+    (58) term -> term . MOD factor
+    (59) term -> term . DIVIDE factor
+
+    COMPARE         reduce using rule 54 (simpleExpression -> simpleExpression PLUS term .)
+    EQUAL           reduce using rule 54 (simpleExpression -> simpleExpression PLUS term .)
+    AND             reduce using rule 54 (simpleExpression -> simpleExpression PLUS term .)
+    OR              reduce using rule 54 (simpleExpression -> simpleExpression PLUS term .)
+    MINUS           reduce using rule 54 (simpleExpression -> simpleExpression PLUS term .)
+    PLUS            reduce using rule 54 (simpleExpression -> simpleExpression PLUS term .)
+    THEN            reduce using rule 54 (simpleExpression -> simpleExpression PLUS term .)
+    DO              reduce using rule 54 (simpleExpression -> simpleExpression PLUS term .)
+    SEMICOLON       reduce using rule 54 (simpleExpression -> simpleExpression PLUS term .)
+    END             reduce using rule 54 (simpleExpression -> simpleExpression PLUS term .)
+    COMMA           reduce using rule 54 (simpleExpression -> simpleExpression PLUS term .)
+    CLOSE_PAREN     reduce using rule 54 (simpleExpression -> simpleExpression PLUS term .)
+    MULTIPLE        shift and go to state 77
+    DIV             shift and go to state 78
+    MOD             shift and go to state 79
+    DIVIDE          shift and go to state 80
+
+
+state 104
+
+    (56) term -> term MULTIPLE factor .
+
+    MULTIPLE        reduce using rule 56 (term -> term MULTIPLE factor .)
+    DIV             reduce using rule 56 (term -> term MULTIPLE factor .)
+    MOD             reduce using rule 56 (term -> term MULTIPLE factor .)
+    DIVIDE          reduce using rule 56 (term -> term MULTIPLE factor .)
+    COMPARE         reduce using rule 56 (term -> term MULTIPLE factor .)
+    EQUAL           reduce using rule 56 (term -> term MULTIPLE factor .)
+    AND             reduce using rule 56 (term -> term MULTIPLE factor .)
+    OR              reduce using rule 56 (term -> term MULTIPLE factor .)
+    MINUS           reduce using rule 56 (term -> term MULTIPLE factor .)
+    PLUS            reduce using rule 56 (term -> term MULTIPLE factor .)
+    THEN            reduce using rule 56 (term -> term MULTIPLE factor .)
+    DO              reduce using rule 56 (term -> term MULTIPLE factor .)
+    SEMICOLON       reduce using rule 56 (term -> term MULTIPLE factor .)
+    END             reduce using rule 56 (term -> term MULTIPLE factor .)
+    COMMA           reduce using rule 56 (term -> term MULTIPLE factor .)
+    CLOSE_PAREN     reduce using rule 56 (term -> term MULTIPLE factor .)
+
+
+state 105
+
+    (57) term -> term DIV factor .
+
+    MULTIPLE        reduce using rule 57 (term -> term DIV factor .)
+    DIV             reduce using rule 57 (term -> term DIV factor .)
+    MOD             reduce using rule 57 (term -> term DIV factor .)
+    DIVIDE          reduce using rule 57 (term -> term DIV factor .)
+    COMPARE         reduce using rule 57 (term -> term DIV factor .)
+    EQUAL           reduce using rule 57 (term -> term DIV factor .)
+    AND             reduce using rule 57 (term -> term DIV factor .)
+    OR              reduce using rule 57 (term -> term DIV factor .)
+    MINUS           reduce using rule 57 (term -> term DIV factor .)
+    PLUS            reduce using rule 57 (term -> term DIV factor .)
+    THEN            reduce using rule 57 (term -> term DIV factor .)
+    DO              reduce using rule 57 (term -> term DIV factor .)
+    SEMICOLON       reduce using rule 57 (term -> term DIV factor .)
+    END             reduce using rule 57 (term -> term DIV factor .)
+    COMMA           reduce using rule 57 (term -> term DIV factor .)
+    CLOSE_PAREN     reduce using rule 57 (term -> term DIV factor .)
+
+
+state 106
+
+    (58) term -> term MOD factor .
+
+    MULTIPLE        reduce using rule 58 (term -> term MOD factor .)
+    DIV             reduce using rule 58 (term -> term MOD factor .)
+    MOD             reduce using rule 58 (term -> term MOD factor .)
+    DIVIDE          reduce using rule 58 (term -> term MOD factor .)
+    COMPARE         reduce using rule 58 (term -> term MOD factor .)
+    EQUAL           reduce using rule 58 (term -> term MOD factor .)
+    AND             reduce using rule 58 (term -> term MOD factor .)
+    OR              reduce using rule 58 (term -> term MOD factor .)
+    MINUS           reduce using rule 58 (term -> term MOD factor .)
+    PLUS            reduce using rule 58 (term -> term MOD factor .)
+    THEN            reduce using rule 58 (term -> term MOD factor .)
+    DO              reduce using rule 58 (term -> term MOD factor .)
+    SEMICOLON       reduce using rule 58 (term -> term MOD factor .)
+    END             reduce using rule 58 (term -> term MOD factor .)
+    COMMA           reduce using rule 58 (term -> term MOD factor .)
+    CLOSE_PAREN     reduce using rule 58 (term -> term MOD factor .)
+
+
+state 107
+
+    (59) term -> term DIVIDE factor .
+
+    MULTIPLE        reduce using rule 59 (term -> term DIVIDE factor .)
+    DIV             reduce using rule 59 (term -> term DIVIDE factor .)
+    MOD             reduce using rule 59 (term -> term DIVIDE factor .)
+    DIVIDE          reduce using rule 59 (term -> term DIVIDE factor .)
+    COMPARE         reduce using rule 59 (term -> term DIVIDE factor .)
+    EQUAL           reduce using rule 59 (term -> term DIVIDE factor .)
+    AND             reduce using rule 59 (term -> term DIVIDE factor .)
+    OR              reduce using rule 59 (term -> term DIVIDE factor .)
+    MINUS           reduce using rule 59 (term -> term DIVIDE factor .)
+    PLUS            reduce using rule 59 (term -> term DIVIDE factor .)
+    THEN            reduce using rule 59 (term -> term DIVIDE factor .)
+    DO              reduce using rule 59 (term -> term DIVIDE factor .)
+    SEMICOLON       reduce using rule 59 (term -> term DIVIDE factor .)
+    END             reduce using rule 59 (term -> term DIVIDE factor .)
+    COMMA           reduce using rule 59 (term -> term DIVIDE factor .)
+    CLOSE_PAREN     reduce using rule 59 (term -> term DIVIDE factor .)
+
+
+state 108
+
+    (61) factor -> ID OPEN_PAREN expressionList . CLOSE_PAREN
+    (45) expressionList -> expressionList . COMMA expression
+
+    CLOSE_PAREN     shift and go to state 124
+    COMMA           shift and go to state 94
+
+
+state 109
+
+    (64) factor -> OPEN_PAREN expression CLOSE_PAREN .
+
+    MULTIPLE        reduce using rule 64 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    DIV             reduce using rule 64 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    MOD             reduce using rule 64 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    DIVIDE          reduce using rule 64 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    COMPARE         reduce using rule 64 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    EQUAL           reduce using rule 64 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    AND             reduce using rule 64 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    OR              reduce using rule 64 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    MINUS           reduce using rule 64 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    PLUS            reduce using rule 64 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    THEN            reduce using rule 64 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    DO              reduce using rule 64 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    SEMICOLON       reduce using rule 64 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    END             reduce using rule 64 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    COMMA           reduce using rule 64 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+    CLOSE_PAREN     reduce using rule 64 (factor -> OPEN_PAREN expression CLOSE_PAREN .)
+
+
+state 110
+
+    (35) statement -> WHILE expression DO statement .
+
+    SEMICOLON       reduce using rule 35 (statement -> WHILE expression DO statement .)
+    END             reduce using rule 35 (statement -> WHILE expression DO statement .)
+
+
+state 111
+
+    (12) subHead -> FUNC ID args RETURN type . SEMICOLON
+
+    SEMICOLON       shift and go to state 125
+
+
+state 112
+
+    (15) args -> OPEN_PAREN paramList CLOSE_PAREN .
+
+    RETURN          reduce using rule 15 (args -> OPEN_PAREN paramList CLOSE_PAREN .)
+    SEMICOLON       reduce using rule 15 (args -> OPEN_PAREN paramList CLOSE_PAREN .)
+
+
+state 113
+
+    (17) paramList -> paramList SEMICOLON . identList COLON type
+    (4) identList -> . ID
+    (5) identList -> . identList COMMA ID
+
+    ID              shift and go to state 15
+
+    identList                      shift and go to state 126
+
+state 114
+
+    (16) paramList -> identList COLON . type
+    (6) type -> . INT
+    (7) type -> . REAL
+    (8) type -> . STRI
+
+    INT             shift and go to state 57
+    REAL            shift and go to state 58
+    STRI            shift and go to state 59
+
+    type                           shift and go to state 127
+
+state 115
+
+    (40) string -> STRING STR STRING .
+
+    CLOSE_PAREN     reduce using rule 40 (string -> STRING STR STRING .)
+
+
+state 116
+
+    (45) expressionList -> expressionList COMMA expression .
+
+    COMMA           reduce using rule 45 (expressionList -> expressionList COMMA expression .)
+    CLOSE_PAREN     reduce using rule 45 (expressionList -> expressionList COMMA expression .)
+
+
+state 117
+
+    (19) bodyWBC -> BEGIN optionalStatementsWBC . END
+
+    END             shift and go to state 128
+
+
+state 118
+
+    (23) optionalStatementsWBC -> statementListWBC .
+    (27) statementListWBC -> statementListWBC . SEMICOLON statementWBC
+
+    END             reduce using rule 23 (optionalStatementsWBC -> statementListWBC .)
+    SEMICOLON       shift and go to state 129
+
+
+state 119
+
+    (26) statementListWBC -> statementWBC .
+
+    SEMICOLON       reduce using rule 26 (statementListWBC -> statementWBC .)
+    END             reduce using rule 26 (statementListWBC -> statementWBC .)
+
+
+state 120
+
+    (36) statementWBC -> statement .
+
+    SEMICOLON       reduce using rule 36 (statementWBC -> statement .)
+    END             reduce using rule 36 (statementWBC -> statement .)
+
+
+state 121
+
+    (37) statementWBC -> brCon .
+
+    SEMICOLON       reduce using rule 37 (statementWBC -> brCon .)
+    END             reduce using rule 37 (statementWBC -> brCon .)
+
+
+state 122
+
+    (38) brCon -> BREAK .
+
+    SEMICOLON       reduce using rule 38 (brCon -> BREAK .)
+    END             reduce using rule 38 (brCon -> BREAK .)
+
+
+state 123
+
+    (39) brCon -> CONTINUE .
+
+    SEMICOLON       reduce using rule 39 (brCon -> CONTINUE .)
+    END             reduce using rule 39 (brCon -> CONTINUE .)
+
+
+state 124
+
+    (61) factor -> ID OPEN_PAREN expressionList CLOSE_PAREN .
+
+    MULTIPLE        reduce using rule 61 (factor -> ID OPEN_PAREN expressionList CLOSE_PAREN .)
+    DIV             reduce using rule 61 (factor -> ID OPEN_PAREN expressionList CLOSE_PAREN .)
+    MOD             reduce using rule 61 (factor -> ID OPEN_PAREN expressionList CLOSE_PAREN .)
+    DIVIDE          reduce using rule 61 (factor -> ID OPEN_PAREN expressionList CLOSE_PAREN .)
+    COMPARE         reduce using rule 61 (factor -> ID OPEN_PAREN expressionList CLOSE_PAREN .)
+    EQUAL           reduce using rule 61 (factor -> ID OPEN_PAREN expressionList CLOSE_PAREN .)
+    AND             reduce using rule 61 (factor -> ID OPEN_PAREN expressionList CLOSE_PAREN .)
+    OR              reduce using rule 61 (factor -> ID OPEN_PAREN expressionList CLOSE_PAREN .)
+    MINUS           reduce using rule 61 (factor -> ID OPEN_PAREN expressionList CLOSE_PAREN .)
+    PLUS            reduce using rule 61 (factor -> ID OPEN_PAREN expressionList CLOSE_PAREN .)
+    THEN            reduce using rule 61 (factor -> ID OPEN_PAREN expressionList CLOSE_PAREN .)
+    DO              reduce using rule 61 (factor -> ID OPEN_PAREN expressionList CLOSE_PAREN .)
+    SEMICOLON       reduce using rule 61 (factor -> ID OPEN_PAREN expressionList CLOSE_PAREN .)
+    END             reduce using rule 61 (factor -> ID OPEN_PAREN expressionList CLOSE_PAREN .)
+    COMMA           reduce using rule 61 (factor -> ID OPEN_PAREN expressionList CLOSE_PAREN .)
+    CLOSE_PAREN     reduce using rule 61 (factor -> ID OPEN_PAREN expressionList CLOSE_PAREN .)
+
+
+state 125
+
+    (12) subHead -> FUNC ID args RETURN type SEMICOLON .
+
+    VAR             reduce using rule 12 (subHead -> FUNC ID args RETURN type SEMICOLON .)
+    BEGIN           reduce using rule 12 (subHead -> FUNC ID args RETURN type SEMICOLON .)
+
+
+state 126
+
+    (17) paramList -> paramList SEMICOLON identList . COLON type
+    (5) identList -> identList . COMMA ID
+
+    COLON           shift and go to state 130
+    COMMA           shift and go to state 32
+
+
+state 127
+
+    (16) paramList -> identList COLON type .
+
+    CLOSE_PAREN     reduce using rule 16 (paramList -> identList COLON type .)
+    SEMICOLON       reduce using rule 16 (paramList -> identList COLON type .)
+
+
+state 128
+
+    (19) bodyWBC -> BEGIN optionalStatementsWBC END .
+
+    SEMICOLON       reduce using rule 19 (bodyWBC -> BEGIN optionalStatementsWBC END .)
+    END             reduce using rule 19 (bodyWBC -> BEGIN optionalStatementsWBC END .)
+
+
+state 129
+
+    (27) statementListWBC -> statementListWBC SEMICOLON . statementWBC
+    (36) statementWBC -> . statement
+    (37) statementWBC -> . brCon
+    (28) statement -> . variable ASSIGN expression
+    (29) statement -> . PRINT OPEN_PAREN string CLOSE_PAREN
+    (30) statement -> . PRINT OPEN_PAREN ID CLOSE_PAREN
+    (31) statement -> . READ OPEN_PAREN string CLOSE_PAREN
+    (32) statement -> . ID OPEN_PAREN expressionListProc CLOSE_PAREN
+    (33) statement -> . body
+    (34) statement -> . IF expression THEN bodyWBC
+    (35) statement -> . WHILE expression DO statement
+    (38) brCon -> . BREAK
+    (39) brCon -> . CONTINUE
+    (41) variable -> . ID
+    (18) body -> . BEGIN optionalStatements END
+
+    PRINT           shift and go to state 22
+    READ            shift and go to state 24
+    ID              shift and go to state 23
+    IF              shift and go to state 26
+    WHILE           shift and go to state 27
+    BREAK           shift and go to state 122
+    CONTINUE        shift and go to state 123
+    BEGIN           shift and go to state 10
+
+    statementWBC                   shift and go to state 131
+    statement                      shift and go to state 120
+    brCon                          shift and go to state 121
+    variable                       shift and go to state 21
+    body                           shift and go to state 25
+
+state 130
+
+    (17) paramList -> paramList SEMICOLON identList COLON . type
+    (6) type -> . INT
+    (7) type -> . REAL
+    (8) type -> . STRI
+
+    INT             shift and go to state 57
+    REAL            shift and go to state 58
+    STRI            shift and go to state 59
+
+    type                           shift and go to state 132
+
+state 131
+
+    (27) statementListWBC -> statementListWBC SEMICOLON statementWBC .
+
+    SEMICOLON       reduce using rule 27 (statementListWBC -> statementListWBC SEMICOLON statementWBC .)
+    END             reduce using rule 27 (statementListWBC -> statementListWBC SEMICOLON statementWBC .)
+
+
+state 132
+
+    (17) paramList -> paramList SEMICOLON identList COLON type .
+
+    CLOSE_PAREN     reduce using rule 17 (paramList -> paramList SEMICOLON identList COLON type .)
+    SEMICOLON       reduce using rule 17 (paramList -> paramList SEMICOLON identList COLON type .)
+
